@@ -3,6 +3,7 @@ const wrapper = document.querySelector('.grid')
 let lager = 10
 let productsArray = []
 let datavar = ''
+
 async function getProducts(){
   try{
     const baseURL = 'https://webstore-22fa4-default-rtdb.europe-west1.firebasedatabase.app/'
@@ -12,6 +13,9 @@ async function getProducts(){
     console.log(data)
     productsArray.push(data)
     datavar = Object.keys(data)
+    console.log(datavar)
+    console.log(productsArray)
+    
     
   }catch(error){
     console.log(error)
@@ -140,8 +144,10 @@ for(let i = 0; i < euro.length; i++ ){
             console.log(cartItems)
         }else {
         cartItems[product.id].inCart += 1
-       
         product.inCart++
+
+        cartItems[product.id].lager = product.lager - cartItems[product.id].inCart
+        //product.lager--
         
         console.log(cartItems) //funkar
         }
@@ -190,6 +196,7 @@ for(let i = 0; i < euro.length; i++ ){
      let obj = Object.values(products) 
     patchPost(obj)
     console.log(obj)
+    localStorage.setItem('obj', obj)
 
   onLoadCartNumbers()
 

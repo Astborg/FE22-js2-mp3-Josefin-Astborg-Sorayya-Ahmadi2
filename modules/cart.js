@@ -1,45 +1,70 @@
-let products = [
-  {
-      id: 0,
-      namn: 'Sneaker1',
-      img: '1product',
-      pris: 1500,
-      lager: 10,
-      inCart: 0
-  },
-  {
-      id: 1,
-      namn: 'Sneaker2',
-      img: '2product',
-      pris: 1500,
-      lager: 10,
-      inCart: 0
-  },
-  {
-      id: 2,
-      namn: 'Sneaker3',
-      img: '3product',
-      pris: 1500,
-      lager: 10,
-      inCart: 0
-  },
-  {
-      id: 3,
-      namn: 'Sneaker4',
-      img: '4products',
-      pris: 1500,
-      lager: 10,
-      inCart: 0
-  },
-  {
-      id: 4,
-      namn: 'Sneaker5',
-      img: '5product',
-      pris: 1500,
-      lager: 10,
-      inCart: 0
+let products = []
+//let datavar = ''
+
+async function getProducts(){
+  try{
+    const baseURL = 'https://webstore-22fa4-default-rtdb.europe-west1.firebasedatabase.app/'
+    const url = baseURL + 'Products.json'
+    const response = await fetch(url)
+    let data = await response.json()
+    console.log(data)
+    products.push(data)
+    //datavar = Object.keys(data)
+    console.log(products)
+    
+    
+  }catch(error){
+    console.log(error)
   }
-]
+  
+
+  }
+
+getProducts()
+
+
+// let products = [
+//   {
+//       id: 0,
+//       namn: 'Sneaker1',
+//       img: '1product',
+//       pris: 1500,
+//       lager: 10,
+//       inCart: 0
+//   },
+//   {
+//       id: 1,
+//       namn: 'Sneaker2',
+//       img: '2product',
+//       pris: 1500,
+//       lager: 10,
+//       inCart: 0
+//   },
+//   {
+//       id: 2,
+//       namn: 'Sneaker3',
+//       img: '3product',
+//       pris: 1500,
+//       lager: 10,
+//       inCart: 0
+//   },
+//   {
+//       id: 3,
+//       namn: 'Sneaker4',
+//       img: '4products',
+//       pris: 1500,
+//       lager: 10,
+//       inCart: 0
+//   },
+//   {
+//       id: 4,
+//       namn: 'Sneaker5',
+//       img: '5product',
+//       pris: 1500,
+//       lager: 10,
+//       inCart: 0
+//   }
+// ]
 function displayCart(){
 let cartItems = localStorage.getItem('productsInCart')
 cartItems = JSON.parse(cartItems)
@@ -66,6 +91,7 @@ if(cartItems && productGrid){
 function emptyCart(){
   let productGrid = document.querySelector('.grid')
   productGrid.innerHTML = ''
+  localStorage.clear();
 }
 
 displayCart()
@@ -93,15 +119,26 @@ displayCart()
                 cartArray.forEach((item) => {
                   const productId = item.id;
                   if (productId in products) {
-                    const newLager = item.lager - item.inCart;
+                    const newLager = 10 - item.inCart;
+                    const newCart = 0 + item.inCart
                     productsToUpdate[productId] = {
-                      ...products[productId],
+                      productId,
+                      inCart: newCart,
+                      lager: newLager,
+                    };
+                  }else{
+                    const newLager = 10 - item.inCart;
+                    const newCart = 0 + item.inCart
+                    productsToUpdate[productId] = {
+                      productId,
+                      inCart: newCart,
                       lager: newLager,
                     };
                   }
                 });
               }
-          
+             console.log(productsToUpdate)
+
               const init = {
                 method: "PATCH",
                 body: JSON.stringify(productsToUpdate),

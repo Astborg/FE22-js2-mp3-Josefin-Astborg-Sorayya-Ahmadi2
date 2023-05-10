@@ -79,11 +79,32 @@ let products = [
 const euro = document.querySelectorAll('.euro')
 
 
+
+
+// let newLager1 = document.getElementById('lager1')
+// newLager1.innerText = 10
+// let newLager2 = document.getElementById('lager2')
+// newLager2.innerText = 10
+// let newLager3 = document.getElementById('lager3')
+// newLager3.innerText = 10
+// let newLager4 = document.getElementById('lager4')
+// newLager4.innerText = 10
+
+// for(let i = 0; i <newLager.length; i++){
+//     newLager[i].innerText = 10
+//     if(newLager[i]){
+//         newLager[i].innerText--
+//     }
+
+// }
+
 for(let i = 0; i < euro.length; i++ ){
+    
     euro[i].addEventListener('click', () => {
+        
         cartNumbers(products[i])
         totalCost(products[i])
-        
+       
          if(products[i].inCart === 10){
            const disabled =  euro[i].disabled = true
            localStorage.setItem('disabled', disabled )
@@ -96,7 +117,8 @@ for(let i = 0; i < euro.length; i++ ){
 
             
          }  
-       
+         
+         
     })
 }
 
@@ -130,7 +152,9 @@ for(let i = 0; i < euro.length; i++ ){
   }
 
   
-
+  let newLager = document.querySelectorAll('.lager')
+  newLager.innerText = 10
+  
   function setItems(product){
     let cartItems = localStorage.getItem('productsInCart')
     cartItems = JSON.parse(cartItems)
@@ -144,16 +168,18 @@ for(let i = 0; i < euro.length; i++ ){
             console.log(cartItems)
         }else {
         cartItems[product.id].inCart += 1
-        product.inCart++
-
-        cartItems[product.id].lager = product.lager - cartItems[product.id].inCart
-        //product.lager--
         
+        cartItems[product.id].lager = 10 - cartItems[product.id].inCart
+        //product.lager--
+        product.inCart++
+        newLager.innerText = cartItems[product.id].lager
         console.log(cartItems) //funkar
+        
         }
     }
     else{
         product.inCart = 1
+        product.lager = 9
         cartItems = {
             [product.id]: product
     }

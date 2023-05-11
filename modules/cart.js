@@ -9,7 +9,7 @@ async function getProducts(){
     let data = await response.json()
     console.log(data)
     products.push(data)
-    //datavar = Object.keys(data)
+   
     console.log(products)
     
     
@@ -23,48 +23,6 @@ async function getProducts(){
 getProducts()
 
 
-// let products = [
-//   {
-//       id: 0,
-//       namn: 'Sneaker1',
-//       img: '1product',
-//       pris: 1500,
-//       lager: 10,
-//       inCart: 0
-//   },
-//   {
-//       id: 1,
-//       namn: 'Sneaker2',
-//       img: '2product',
-//       pris: 1500,
-//       lager: 10,
-//       inCart: 0
-//   },
-//   {
-//       id: 2,
-//       namn: 'Sneaker3',
-//       img: '3product',
-//       pris: 1500,
-//       lager: 10,
-//       inCart: 0
-//   },
-//   {
-//       id: 3,
-//       namn: 'Sneaker4',
-//       img: '4products',
-//       pris: 1500,
-//       lager: 10,
-//       inCart: 0
-//   },
-//   {
-//       id: 4,
-//       namn: 'Sneaker5',
-//       img: '5product',
-//       pris: 1500,
-//       lager: 10,
-//       inCart: 0
-//   }
-// ]
 function displayCart(){
 let cartItems = localStorage.getItem('productsInCart')
 cartItems = JSON.parse(cartItems)

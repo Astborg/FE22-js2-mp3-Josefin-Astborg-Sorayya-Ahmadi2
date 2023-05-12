@@ -74,44 +74,41 @@ let products = [
     }
 ]
 
-
-
 const euro = document.querySelectorAll('.euro')
-
-
+let disabled = [false, false, false, false, false];
+let newDisabled = disabled;
+let newDisabled1 = []; 
 for(let i = 0; i < euro.length; i++ ){
-    
-    euro[i].addEventListener('click', (e) => {
-        e.preventDefault()
         
-        cartNumbers(products[i])
-        totalCost(products[i])
-       
-         if(products[i].inCart > 9 || products[i].lager < 1){
-           const disabled =  euro[i].disabled = true
-           localStorage.setItem('disabled', disabled )
-           let newDisabled= localStorage.getItem('disabled')
-           newDisabled = JSON.parse(newDisabled)
-          
+        euro[i].addEventListener('click', (e) => {
+            e.preventDefault()
+            
+            cartNumbers(products[i])
+            totalCost(products[i])
            
-            if(newDisabled === true){
-            
-             euro[i].disabled = true
+             if(products[i].inCart > 9 || products[i].lager < 1){
+               disabled[i] = true;
+               localStorage.setItem('disabled', JSON.stringify(disabled) )
+                }
+            newDisabled = localStorage.getItem('disabled')
+            if(newDisabled){
+            newDisabled1[i]= JSON.parse(newDisabled)[i];
+            if(newDisabled1[i] === true){
+                 euro[i].disabled = true
             }
-            
-            
-            
-            
-            
+            }
+        })
+        
+        newDisabled = localStorage.getItem('disabled')
+        if(newDisabled){
+            newDisabled1[i]= JSON.parse(newDisabled)[i];
+               
+            if(newDisabled1[i] === true){
+                 euro[i].disabled = true
+            }
+            }
+    }
 
-            
-         }  
-         
-         
-    })
-}
-
-         
 
 
   function onLoadCartNumbers(){
